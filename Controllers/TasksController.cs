@@ -12,7 +12,9 @@ namespace TaskManagerAPI.Controllers
         private static List<TaskItem> tasks = new List<TaskItem>
         {
             new TaskItem { Id = 1, Title = "משימה ראשונה", Description = "תיאור משימה", Status = false },
-            new TaskItem { Id = 2, Title = "משימה שנייה", Description = "תיאור נוסף", Status = true }
+            new TaskItem { Id = 2, Title = "משימה שנייה", Description = "תיאור נוסף", Status = true },
+            new TaskItem { Id = 2, Title = "", Description = "", Status = true }
+
         };
 
         // GET: api/tasks
@@ -48,6 +50,10 @@ namespace TaskManagerAPI.Controllers
         [HttpPost]
         public IActionResult CreateTask([FromBody] TaskItem task)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (string.IsNullOrEmpty(task.Title) || task.Title.Length < 3 || task.Title.Length > 50)
             {
                 return BadRequest(new { Message = "כותרת המשימה חייבת להיות בין 3 ל-50 תווים." });
@@ -62,6 +68,11 @@ namespace TaskManagerAPI.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateTask(int id, [FromBody] TaskItem updatedTask)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var task = tasks.FirstOrDefault(t => t.Id == id);
             if (task == null)
             {
@@ -87,5 +98,6 @@ namespace TaskManagerAPI.Controllers
             tasks.Remove(task);
             return NoContent();
         }
+
     }
 }
