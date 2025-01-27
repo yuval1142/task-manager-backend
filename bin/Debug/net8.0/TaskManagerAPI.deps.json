@@ -9,6 +9,7 @@
       "TaskManagerAPI/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.OpenApi": "8.0.6",
+          "Microsoft.EntityFrameworkCore.InMemory": "9.0.1",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.1",
           "Swashbuckle.AspNetCore": "7.2.0"
         },
@@ -61,6 +62,19 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/9.0.1": {},
+      "Microsoft.EntityFrameworkCore.InMemory/9.0.1": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.1",
+          "Microsoft.Extensions.Caching.Memory": "9.0.1",
+          "Microsoft.Extensions.Logging": "9.0.1"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
+            "assemblyVersion": "9.0.1.0",
+            "fileVersion": "9.0.124.61002"
+          }
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/9.0.1": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "9.0.1",
@@ -495,6 +509,13 @@
       "sha512": "sha512-c6ZZJZhPKrXFkE2z/81PmuT69HBL6Y68Cl0xJ5SRrDjJyq5Aabkq15yCqPg9RQ3R0aFLVaJok2DA8R3TKpejDQ==",
       "path": "microsoft.entityframeworkcore.analyzers/9.0.1",
       "hashPath": "microsoft.entityframeworkcore.analyzers.9.0.1.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.InMemory/9.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XTuTax42m89JET3rgjWphx11pGXD77dc9kAO8B4l9Ze9NAJnw7qDL/cqmaGiHEAxL/8f0PJ+zY4FII0v/nXlmg==",
+      "path": "microsoft.entityframeworkcore.inmemory/9.0.1",
+      "hashPath": "microsoft.entityframeworkcore.inmemory.9.0.1.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/9.0.1": {
       "type": "package",

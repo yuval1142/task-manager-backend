@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "WTS4GRPFBVY=",
+  "dgSpecHash": "pK+IKcOrSDg=",
   "success": true,
   "projectFilePath": "C:\\יובל\\New folder\\task\\task-manager-backend\\TaskManagerAPI\\TaskManagerAPI.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\Yuval\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.1\\microsoft.entityframeworkcore.9.0.1.nupkg.sha512",
     "C:\\Users\\Yuval\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.1\\microsoft.entityframeworkcore.abstractions.9.0.1.nupkg.sha512",
     "C:\\Users\\Yuval\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.1\\microsoft.entityframeworkcore.analyzers.9.0.1.nupkg.sha512",
+    "C:\\Users\\Yuval\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\9.0.1\\microsoft.entityframeworkcore.inmemory.9.0.1.nupkg.sha512",
     "C:\\Users\\Yuval\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\9.0.1\\microsoft.entityframeworkcore.relational.9.0.1.nupkg.sha512",
     "C:\\Users\\Yuval\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\9.0.1\\microsoft.entityframeworkcore.sqlite.9.0.1.nupkg.sha512",
     "C:\\Users\\Yuval\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\9.0.1\\microsoft.entityframeworkcore.sqlite.core.9.0.1.nupkg.sha512",
