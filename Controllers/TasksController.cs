@@ -27,11 +27,11 @@ namespace TaskManagerAPI.Controllers
             }
 
             // Perform search and pagination using database
-            var filteredTasks = string.IsNullOrWhiteSpace(request.SearchQuery)
+            var filteredTasks = string.IsNullOrWhiteSpace(request.Search)
                 ? _context.Tasks
                 : _context.Tasks.Where(t =>
-                    t.Title.Contains(request.SearchQuery) ||
-                    t.Description.Contains(request.SearchQuery));
+                    t.Title.Contains(request.Search) ||
+                    t.Description.Contains(request.Search));
 
             var pagedTasks = filteredTasks
                 .Skip((request.Page - 1) * request.PageSize)

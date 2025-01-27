@@ -31,8 +31,11 @@ builder.Services.AddSwaggerGen(c =>
     var yamlPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory)?.FullName ?? string.Empty, @"..\task-manager-docs\task-api-v1.0.0.yaml");
     if (File.Exists(yamlPath))
     {
+        Console.WriteLine("Path Found!");
         c.IncludeXmlComments(yamlPath);
         // Attach the YAML file 
+    }else{
+        Console.WriteLine("Path Does Not Exsist");
     }
 });
 
