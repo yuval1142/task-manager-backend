@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace TaskManagerAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/tasks")]
     [ApiController]
     public class TasksController : ControllerBase
     {
@@ -17,37 +17,51 @@ namespace TaskManagerAPI.Controllers
 
         };
 
-        // GET: api/tasks
-        [HttpGet]
-        public IActionResult GetAllTasks([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+       // POST: api/tasks
+        [HttpPost("")]
+        public IActionResult GetAllTasksWithPaginationAndSearch([FromBody] PaginationSearchRequest request)
         {
-            var pagedTasks = tasks
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
+            // Validate request parameters
+            if (request.Page < 1 || request.PageSize < 1)
+            {
+                return BadRequest(new { error = "Invalid request parameters" });
+            }
+ 
+            // Perform search and pagination
+            var filteredTasks = string.IsNullOrWhiteSpace(request.SearchQuery)
+                ? tasks
+                : tasks.Where(t =>
+                    t.Title.Contains(request.SearchQuery, StringComparison.OrdinalIgnoreCase) ||
+                    t.Description.Contains(request.SearchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
+ 
+            var pagedTasks = filteredTasks
+                .Skip((request.Page - 1) * request.PageSize)
+                .Take(request.PageSize)
                 .ToList();
+ 
             return Ok(new
             {
-                TotalItems = tasks.Count,
-                Page = page,
-                PageSize = pageSize,
-                Tasks = pagedTasks
+                tasks = pagedTasks,
+                total = filteredTasks.Count
             });
         }
 
-        // GET: api/tasks/{id}
-        [HttpGet("{id}")]
-        public IActionResult GetTaskById(int id)
+        // POST: api/tasks/details
+        [HttpPost("details")]
+        public IActionResult GetTaskById([FromBody] TaskIdRequest request)
         {
-            var task = tasks.FirstOrDefault(t => t.Id == id);
+            // Find task by ID
+            var task = tasks.FirstOrDefault(t => t.Id == request.Id);
             if (task == null)
             {
-                return NotFound(new { Message = "המשימה לא נמצאה" });
+                return NotFound(new { error = "Task not found" });
             }
+ 
             return Ok(task);
         }
 
         // POST: api/tasks
-        [HttpPost]
+        [HttpPost("create")]
         public IActionResult CreateTask([FromBody] TaskItem task)
         {
             if (!ModelState.IsValid)
@@ -64,26 +78,32 @@ namespace TaskManagerAPI.Controllers
             return CreatedAtAction(nameof(GetTaskById), new { id = task.Id }, task);
         }
 
+      
         // PUT: api/tasks/{id}
         [HttpPut("{id}")]
-        public IActionResult UpdateTask(int id, [FromBody] TaskItem updatedTask)
+        public IActionResult UpdateTask(int id, [FromBody] TaskItem request)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
+            // Find the task
             var task = tasks.FirstOrDefault(t => t.Id == id);
             if (task == null)
             {
-                return NotFound(new { Message = "המשימה לא נמצאה" });
+                return NotFound(new { error = "Task not found" });
             }
-
-            task.Title = updatedTask.Title;
-            task.Description = updatedTask.Description;
-            task.Status = updatedTask.Status;
+ 
+            // Update task fields
+            if (!string.IsNullOrWhiteSpace(request.Title))
+            {
+                task.Title = request.Title;
+            }
+            if (!string.IsNullOrWhiteSpace(request.Description))
+            {
+                task.Description = request.Description;
+            }
+            task.Status = request.Status;
+ 
             return Ok(task);
         }
+ 
 
         // DELETE: api/tasks/{id}
         [HttpDelete("{id}")]
