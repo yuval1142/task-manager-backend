@@ -79,12 +79,12 @@ namespace TaskManagerAPI.Controllers
             return CreatedAtAction(nameof(GetTaskById), new { id = task.Id }, task);
         }
 
-        // PUT: api/tasks/{id}
-        [HttpPut("{id}")]
-        public IActionResult UpdateTask(int id, [FromBody] TaskItem request)
+        // PUT: api/tasks/update
+        [HttpPut("update")]
+        public IActionResult UpdateTask([FromBody] TaskUpdateRequest request)
         {
             // Find the task
-            var task = _context.Tasks.Find(id);
+            var task = _context.Tasks.Find(request.Id);
             if (task == null)
             {
                 return NotFound(new { error = "Task not found" });
@@ -99,18 +99,21 @@ namespace TaskManagerAPI.Controllers
             {
                 task.Description = request.Description;
             }
-            task.Status = request.Status;
+            if (request.Status.HasValue)
+            {
+                task.Status = request.Status.Value;
+            }
 
             _context.SaveChanges();
 
             return Ok(task);
         }
 
-        // DELETE: api/tasks/{id}
-        [HttpDelete("{id}")]
-        public IActionResult DeleteTask(int id)
+        // DELETE: api/tasks/delete
+        [HttpDelete("delete")]
+        public IActionResult DeleteTask([FromBody] TaskIdRequest request)
         {
-            var task = _context.Tasks.Find(id);
+            var task = _context.Tasks.Find(request.Id);
             if (task == null)
             {
                 return NotFound(new { Message = "המשימה לא נמצאה" });
